@@ -34,7 +34,7 @@
                           absolute path to improvement data file
   ```
 
-- Run the script using the following command (data files should be available in the data directory):
+- Run the script using the following command (data files should be available as data.tar.gz; unzip them first into data/ directory):
   ```sh
     $ python3 import_data.py -i ../data/Improvement.txt -se ../data/Segment.txt -p ../data/Property.txt -l ../data/Land.txt -o ../data/Owner.txt -sa ../data/Sales.txt
   ```

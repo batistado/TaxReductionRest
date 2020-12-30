@@ -11,6 +11,15 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from mongoengine import connect
+
+
+MONGODB_HOST = 'localhost'
+MONGODB_PORT = 27017
+DB_NAME = 'TaxReduction'
+COLLECTION_NAME = 'Properties'
+
+connect(DB_NAME, host=MONGODB_HOST, port=MONGODB_PORT)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     # tax reduction application
-    'taxreductionapps.apps.TaxreductionappConfig',
+    'taxreductionapp.apps.TaxreductionappConfig',
     # CORS
     'corsheaders',
 ]
@@ -83,10 +92,7 @@ WSGI_APPLICATION = 'TaxReduction.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'TaxReduction',
-        'HOST': '127.0.0.1',
-        'PORT': 27017,
+        'ENGINE': 'django.db.backends.dummy'
     }
 }
 

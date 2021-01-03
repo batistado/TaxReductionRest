@@ -121,7 +121,7 @@ class PropertyDataImporter:
         self.ingest_data(seg_file, headers,
                          COLLECTION_NAME, ['PropertyID'])
 
-
+#dummy
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--property', required=False,

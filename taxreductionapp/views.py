@@ -36,7 +36,7 @@ def property_by_address(request):
     except Properties.DoesNotExist:
         return JsonResponse(response, status=status.HTTP_404_NOT_FOUND)
     except Exception:
-        return JsonResponse(response, status=status.HTTP_404_NOT_FOUND)
+        return JsonResponse(response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     if request.method == 'GET':
         return JsonResponse(response)

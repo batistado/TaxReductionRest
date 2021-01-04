@@ -4,6 +4,8 @@
 
 - Ingest Property data using the import data tool following the instructions [here](https://github.com/batistado/TaxReductionRest/tree/main/tools).
 
+- Install Redis and also start the redis server.
+
 - Install dependencies for the project using the following command:
   ```sh
   $ cd TaxReduction

@@ -11,4 +11,4 @@ class PropertySerializer(serializers.DocumentSerializer):
 class PropertyAddressSerializer(serializers.DocumentSerializer):
     class Meta:
         model = Properties
-        fields = ('id', 'Situs')
+        fields = ('PropertyID', 'Situs')

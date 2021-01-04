@@ -6,3 +6,9 @@ class PropertySerializer(serializers.DocumentSerializer):
     class Meta:
         model = Properties
         fields = '__all__'
+
+
+class PropertyAddressSerializer(serializers.DocumentSerializer):
+    class Meta:
+        model = Properties
+        fields = ('id', 'Situs')

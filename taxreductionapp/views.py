@@ -6,7 +6,11 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 
 from taxreductionapp.models import Properties
-from taxreductionapp.serializers import PropertySerializer
+from taxreductionapp.serializers import PropertySerializer, PropertyAddressSerializer
+from taxreductionapp.middleware.cache import AutoComplete
+
+ADDRESS_LIMIT = 5
+CACHE = AutoComplete.get_instance()
 
 
 @csrf_exempt
@@ -30,12 +34,19 @@ def property_by_address(request):
     response = {"data": []}
     try:
         address = request.GET['address']
-        serializer = PropertySerializer(
-            Properties.objects(Address1__istartswith=address)[:5], many=True)
-        response["data"] = serializer.data
+
+        response["data"] = CACHE.get(address)
+        if not response["data"]:
+            serializer = PropertyAddressSerializer(
+                Properties.objects(Situs__istartswith=address)[:ADDRESS_LIMIT], many=True)
+
+            CACHE.add(address, serializer.data)
+            response["data"] = serializer.data
+
     except Properties.DoesNotExist:
         return JsonResponse(response, status=status.HTTP_404_NOT_FOUND)
-    except Exception:
+    except Exception as e:
+        print(e)
         return JsonResponse(response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     if request.method == 'GET':

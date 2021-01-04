@@ -139,3 +139,6 @@ CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8081',
 )
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379

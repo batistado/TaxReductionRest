@@ -1,6 +1,10 @@
 from django.db import models
 from mongoengine import *
 
+from taxreductionapp.parsers.formula import FormulaParser
+
+FORMULA_PARSER = FormulaParser.get_instance()
+
 # Create your models here.
 
 
@@ -10,6 +14,7 @@ class Properties(Document):
         'strict': False,
         'indexes': [
             ('Situs'),
+            tuple(FORMULA_PARSER.get_formula_field_list_by_type('property', 'eq')),
         ]}
 
     PropertyID = StringField(max_length=200, required=True)

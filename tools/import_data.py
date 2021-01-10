@@ -1,14 +1,16 @@
 import argparse
 import csv
+import json
 
 from pymongo import MongoClient
 from pymongo import UpdateOne
 from pymongo import ASCENDING
-from pprint import pprint
 
-MONGODB_HOST = 'localhost'
-MONGODB_PORT = 27017
-DB_NAME = 'TaxReduction'
+from utils.dbConfig import MONGODB_HOST, MONGODB_PORT, DB_NAME
+from utils.path import get_parent_dir, get_parent_dir_from_dir, join_paths
+
+PROJECT_DIR = get_parent_dir_from_dir(get_parent_dir(__file__))
+CUSTOM_FIELDS_PATH = "taxreductionapp/data/customFields.json"
 COLLECTION_NAME = 'Properties'
 BATCH_SIZE = 5000
 
@@ -18,8 +20,20 @@ class PropertyDataImporter:
         self.db = MongoClient(MONGODB_HOST, MONGODB_PORT)[DB_NAME]
         self.db[COLLECTION_NAME].create_index(
             [('PropertyID', ASCENDING)], unique=True)
+        self.custom_fields = self._get_custom_fields()
 
-    def ingest_data(self, file, headers, collection, keys):
+    def _get_custom_fields(self):
+        with open(join_paths(PROJECT_DIR, CUSTOM_FIELDS_PATH)) as f:
+            return json.load(f)
+
+    def _create_custom_fields(self, data: dict, record, key):
+        for prop in self.custom_fields[key].keys():
+            field_details = self.custom_fields[key][prop]
+
+            data[field_details["name"]] = record[prop].split(field_details["separator"])[
+                field_details["index"]]
+
+    def ingest_data(self, file, headers, collection, keys, custom_fields_key=None):
         if file == "":
             raise ValueError("file path can not be empty.")
 
@@ -39,6 +53,9 @@ class PropertyDataImporter:
                 data = dict()
                 for header in headers:
                     data[header] = record[header]
+
+                if custom_fields_key:
+                    self._create_custom_fields(data, record, custom_fields_key)
 
                 batch.append(
                     UpdateOne(record_key, {'$set': data}, upsert=True))
@@ -71,7 +88,7 @@ class PropertyDataImporter:
                    'Situs']
 
         self.ingest_data(property_file, headers,
-                         COLLECTION_NAME, ['PropertyID'])
+                         COLLECTION_NAME, ['PropertyID'], custom_fields_key="Property")
 
     def ingest_sales_data(self, sales_file) -> None:
         headers = ['PropertyID',
@@ -121,7 +138,8 @@ class PropertyDataImporter:
         self.ingest_data(seg_file, headers,
                          COLLECTION_NAME, ['PropertyID'])
 
-#dummy
+
+# dummy
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--property', required=False,

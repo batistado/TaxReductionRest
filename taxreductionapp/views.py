@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from rest_framework import status
 
-from taxreductionapp.models import Properties
+from taxreductionapp.models.models import Properties
 from taxreductionapp.serializers import PropertySerializer, PropertyAddressSerializer
 from taxreductionapp.middleware.cache import AutoComplete
 

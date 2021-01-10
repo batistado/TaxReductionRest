@@ -65,3 +65,5 @@ class Properties(Document):
     Foundation = StringField(max_length=2000)
     ExtFinish = StringField(max_length=2000)
     Plumbing = StringField(max_length=2000)
+    FirstPropertyNumber = StringField(max_length=200)
+    FirstTaxingUnitList = StringField(max_length=200)

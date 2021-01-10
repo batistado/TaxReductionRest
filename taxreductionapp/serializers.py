@@ -1,5 +1,5 @@
 from rest_framework_mongoengine import serializers
-from taxreductionapp.models import Properties
+from taxreductionapp.models.models import Properties
 
 
 class PropertySerializer(serializers.DocumentSerializer):

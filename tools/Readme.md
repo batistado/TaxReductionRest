@@ -39,3 +39,20 @@
     $ python3 import_data.py -i ../data/Improvement.txt -se ../data/Segment.txt -p ../data/Property.txt -l ../data/Land.txt -o ../data/Owner.txt -sa ../data/Sales.txt
   ```
 - Patiently wait for the data ingestion to complete.
+
+## Import Formula Tool
+
+- Use this tool to ingest formula for property comparisons into our database. We will be using the same datastore as above.
+
+### Steps to ingest data:
+
+- Install dependencies for the project using the following command:
+  ```sh
+  $ cd TaxReduction
+  $ pip3 install -r requirements.txt
+  ```
+- Run the script using the following command (formula data files should be in taxreductionapp/data directory):
+  ```sh
+    $ cd tools/
+    $ python3 import_formula.py
+  ```

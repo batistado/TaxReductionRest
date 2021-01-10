@@ -2,7 +2,7 @@
 
 ## Import Data Tool
 
-- Use this tool to ingest property tax related data into our database. We will be using MongoDB as a datastore so go ahead and install MongoDB.
+- Use this tool to ingest property tax related data and computation formulae into our database. We will be using MongoDB as a datastore so go ahead and install MongoDB.
 
 ### Steps to ingest data:
 
@@ -36,7 +36,7 @@
 
 - Run the script using the following command (data files should be available as data.tar.gz; unzip them first into data/ directory):
   ```sh
-    $ python3 import_data.py -i ../data/Improvement.txt -se ../data/Segment.txt -p ../data/Property.txt -l ../data/Land.txt -o ../data/Owner.txt -sa ../data/Sales.txt
+  $ python3 import_data.py -i ../data/Improvement.txt -se ../data/Segment.txt -p ../data/Property.txt -l ../data/Land.txt -o ../data/Owner.txt -sa ../data/Sales.txt
   ```
 - Patiently wait for the data ingestion to complete.
 
@@ -53,6 +53,6 @@
   ```
 - Run the script using the following command (formula data files should be in taxreductionapp/data directory):
   ```sh
-    $ cd tools/
-    $ python3 import_formula.py
+  $ cd tools/
+  $ python3 import_formula.py
   ```

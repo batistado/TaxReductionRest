@@ -9,26 +9,11 @@ from taxreductionapp.models.properties import Properties
 from taxreductionapp.serializers.properties import PropertySerializer, PropertyAddressSerializer
 from taxreductionapp.middleware.cache import AutoComplete
 from taxreductionapp.parsers.formula import FormulaParser
+from taxreductionapp.parsers.propertymatcher import get_similar_properties
 
 FORMULA_PARSER = FormulaParser.get_instance()
 ADDRESS_LIMIT = 5
 CACHE = AutoComplete.get_instance()
-
-
-def get_similar_properties(propertyID):
-    original_property = PropertySerializer(
-        Properties.objects(PropertyID=propertyID), many=True).data[0]
-
-    eq_props = FORMULA_PARSER.get_formula_field_list_by_type('property', 'eq')
-    lte_props = FORMULA_PARSER.get_formula_field_list_by_type(
-        'property', 'lte')
-
-    filter = dict()
-    for prop in eq_props:
-        filter[prop] = original_property[prop]
-
-    return PropertySerializer(
-        Properties.objects(__raw__=filter), many=True).data
 
 
 @csrf_exempt

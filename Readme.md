@@ -16,3 +16,7 @@
   ```sh
   $ python manage.py runserver
   ```
+
+### Postman Export
+
+- Added postman API export to the root directory. Import it in the postman app to get full list of API routes.

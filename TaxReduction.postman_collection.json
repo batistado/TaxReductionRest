@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "75e1aa5a-989c-4092-8f51-d8ce8e76a8b7",
+		"name": "TaxReduction",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Address Lookup",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/properties/lookup?address=218 Tri",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"properties",
+						"lookup"
+					],
+					"query": [
+						{
+							"key": "address",
+							"value": "218 Tri"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Property By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/properties/10416978",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"properties",
+						"10416978"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Similar Property By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/properties/10416978",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"properties",
+						"10416978"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
